@@ -141,48 +141,18 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">w12 << <a href='w12.html'>Previous</a> <a href='Brython.html'>Next</a> >> Brython<br /><h1>w12-1</h1>
-<!-- 
-在動態網站頁面中啟用 Brython 執行環境的用法, 請注意動態網站執行所在路徑
--->
-<script src="./../cmsimde/static/brython.js"></script>
-<script src="./../cmsimde/static/brython_stdlib.js"></script>
-<!-- 啟動 Brython -->
-<p>
-<script>
-window.onload=function(){
-brython({debug:1, pythonpath:['./../cmsimde/static/','/downloads/py/']});
-}
-</script>
-<!-- 以下事先在頁面中加入 id="brython_div" 的 div 標註
-之後可利用 Brython 的 document 模組與此 html 標註對應
---></p>
-<!-- 利用 html 建立一個 id="btn1" 的按鈕 -->
-<p><button id="btn1">取使用者輸入</button></p>
-<div id="brython_div"></div>
-<p>
-<script type="text/python">
-from browser import html, document
-# Brython 的 input() 可以接受輸入提示字串, 跳出瀏覽器輸入表單後, 將輸入內容以字串取回
-#user_input_temp = input("請輸入攝氏溫度值:")
-# 接著列出 user_input_temp 變數的資料型別
-# 但是在頁面中 Brython 的 print() 將會顯示在 log 而非頁面
-#print(type(user_input_temp))
-# 這裡定義一個 brython_div 變數, 透過 document[] 與頁面中 id="brython_div" 的位置對應
-brython_div = document["brython_div"]
-# 看能不能直接將變數值字串列在標註 id 為 "brython_div" 的頁面位置
-#brython_div <= user_input_temp
-# 之後若要列出 html, 則需要透過 Brython 的 html 模組
-# 接下來要設法按下按鈕之後才執行取使用者 input 的流程
-# 首先 comment 掉前面的 input() 與 print(), 同時蓋掉輸出, 並利用事件導向設計一個函式
-def get_input(env):
-    user_input_temp = input("請輸入攝氏溫度值:")
-    brython_div <= user_input_temp
-# 透過 Brython browser 模組中的 document 物件將 id="btn1" 的物件中的 bind() 方法
-# 讓使用者 click 後會經由瀏覽器中的 event 通知執行 get_input 函式
-document["btn1"].bind('click', get_input)
-</script>
-</p><br />w12 << <a href='w12.html'>Previous</a> <a href='Brython.html'>Next</a> >> Brython</div>
+    <div id="tipue_search_content">HW << <a href='HW.html'>Previous</a> <a href='w13.html'>Next</a> >> w13<br /><h1>w15</h1>
+<div style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Web', sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px;">
+<ul>
+<li>為何學習計算機程式需要建立個人倉儲?<br/>A:</li>
+<li>全球資訊網能夠提供甚麼功能或有什麼優點?<br/>A:</li>
+<li>Replit, stud.cycu.org 與 localhost 分別代表甚麼?<br/>A:</li>
+<li>https, ssh 到底提供使用者那些功能或優點?<br/>A:</li>
+<li>Brython 與 Python 有甚麼差別?<br/>A:</li>
+<li>能夠直接在瀏覽器中以 Brython 繪製中華民國國旗, 或模擬綠色方塊在方塊格點中任意移動, 代表甚麼?<br/>A:</li>
+<li>變數, 字串, 整數, 浮點數, 數列, Tuple, Dictionary, 函式, 重複迴圈, class, 物件導向, 資料庫, 這些名詞對您而言代表甚麼?<br/>A:</li>
+</ul>
+</div><br />HW << <a href='HW.html'>Previous</a> <a href='w13.html'>Next</a> >> w13</div>
         
     <!-- footer -->
       <div class="container">
