@@ -3,7 +3,70 @@
 <p><a href="https://github.com/mdecp2022/site-41123152">Github倉儲</a></p>
 <p></p>
 <h1>HW</h1>
-<h2>w14</h2><h2>w11</h2>
+<h2>w14</h2>
+<p><a href="https://mdecp2022.github.io/site-41123152/content/Brython.html?src=https://gist.githubusercontent.com/41123152/b0344b8689cdbd35647dcf9e9fc4a245/raw/9558793cd80f50d052ad9c5d72e7d0753e9649ad/w14_hw">HW</a></p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false"># 導入 ast 模組是希望利用其 literal_eval() 將 dict 格式的字串轉為 dict 資料型別
+# 以利隨後的取值運算
+import ast
+from browser import document
+ 
+class quiz:
+    def __init__(self, cname, url):
+        self.cname = cname
+        self.url = url
+ 
+    # 定義一個函式, 以班級代號字串作為輸入, 可以傳回各班修課學員的學號數列
+    def get_stud(self):
+        # 將課程的班級代號字串作為 dict 的 key, 而 2022 fall 的課程代號作為對應值
+        # 使用者可以利用班級代號從 courses dict 取出課程代號
+        courses = {"1a": "0747", "1b": "0761", "2a": "0773", "2b": "0786"}
+        # 利用 c_name 從 courses 得到該學期的課程代號
+        c = courses[self.cname]
+        # 利用課程代號從學校教務主機取的該班修課人員名單
+        curl = "https://nfu.cycu.org/?semester=1111&amp;courseno=" + c + "&amp;column=True"
+        # 讀出各修課人員資料後, 以跳行符號切割, 得到的 data 為數列
+        data = open(curl).read().split("\n")
+        # 因為最後一筆資料為空字串, 因此利用數列運算將其去除
+        stud = data[:-1]
+        # get_stud() 函式最後將對應班級的修課人員學號以數列格式傳回
+        return stud
+         
+    def get_score(self):
+        # 利用 open() 與 read() 讀取考試結果 JSON 檔案
+        json_data = open(self.url).read()
+        # 利用 ast.literal_eval() 將字串 dict, 轉為程式可用的 dict 資料型別
+        big_dict = ast.literal_eval(json_data)
+        # 從 big_dict 中, 取出 body 中的 testuser 欄位資料
+        data = big_dict["body"]["testuser"]
+        # 定義一個空 dict 資料變數, 隨後利用迴圈逐一將學號作為 key, 考試成績為 valude
+        # 組成 quiz_dict 的資料內容, 以便之後可以用學號當作輸入, 取得該員考試成績
+        quiz_dict = {}
+        for i in data:
+            # data 資料中的 user_name 為考試學員的帳號, 也就是學號
+            stud_id = data[i]["user_name"]
+            # data 資料中的 total_score 欄位為考試成績
+            # 因為考試成績為字串, 先轉為浮點數後, 再轉為整數
+            stud_score = int(float(data[i]["total_score"]))
+            # 逐一以學號為 key, 考試成績為對應 value, 將資料放入 quiz_dict
+            quiz_dict[stud_id] = stud_score
+        # 取得各學員的考試成績 quiz_dict 後, 將資料傳回
+        return quiz_dict
+ 
+try:
+    url = document.query["url"]
+except:
+    url = "https://gist.githubusercontent.com/mdecycu/9df4b372ac1b7386cf259ced15f1a2b2/raw/a6825f13b1bb0b61e09e74dd117729eefe1d947f/20221110_cp1b_w10_quiz.json"
+ 
+try:
+    cname =document.query["cname"]
+except:
+    cname = "1b"
+ 
+cpb_w14 = quiz(cname, url)
+cp_stud = cpb_w14.get_stud()
+cp_score = cpb_w14.get_score()
+print(cp_stud, cp_score)</pre>
+<p></p><h2>w11</h2>
 <p><a href="https://mdecp2022.github.io/site-41123152/content/Brython.html?src=https://gist.githubusercontent.com/41123152/e7a54d130aa3940d465d28a2d3cf28ea/raw/305932aabf7b550e3a8a7dc9a7517339b46068bd/w11_hw">HW</a></p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">import ast
  
