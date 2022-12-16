@@ -1,17 +1,91 @@
 <h1>About</h1>
 <p><br/><br/>cmsite: wcms use <a href="https://github.com/mdecycu/cmsimde">https://github.com/mdecycu/cmsimde</a> as submodule</p>
 <p><a href="https://github.com/mdecp2022/site-41123152">Github倉儲</a></p>
-<p></p><h1>HW</h1>
+<p></p>
+<h1>HW</h1>
+<h2>w11</h2>
+<p><a href="https://mdecp2022.github.io/site-41123152/content/Brython.html?src=https://gist.githubusercontent.com/41123152/e7a54d130aa3940d465d28a2d3cf28ea/raw/305932aabf7b550e3a8a7dc9a7517339b46068bd/w11_hw">HW</a></p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">import ast
+ 
+# get stud_list first
+ 
+def get_stud(c_name):
+    courses = {"1a": "0747", "1b": "0761", "2a": "0773", "2b": "0786"}
+    c = courses[c_name]
+    url = "https://nfu.cycu.org/?semester=1111&amp;courseno=" + c + "&amp;column=True"
+    data = open(url).read().split("\n")
+    stud = data[:-1]
+    return stud
+     
+cp_stud = get_stud("1a")
+ 
+# get w10 quiz result
+cp_w10_quiz_url = "https://gist.githubusercontent.com/mdecycu/9df4b372ac1b7386cf259ced15f1a2b2/raw/9e8bf693a2805631aa12992db4d4f23e0f64e868/2022_1112_cp1a_w10_quiz.json"
+ 
+def get_score(url):
+    json_data = open(url).read()
+    big_dict = ast.literal_eval(json_data)
+    data = big_dict["body"]["testuser"]
+    quiz_dict = {}
+    for i in data:
+        stud_id = data[i]["user_name"]
+        stud_score = int(float(data[i]["total_score"]))
+        quiz_dict[stud_id] = stud_score
+    return quiz_dict
+     
+cp_quiz = get_score(cp_w10_quiz_url)
+cp_abs = []
+for stud in cp_stud:
+    try:
+        print(stud, cp_quiz[stud])
+    except:
+        # 缺考者沒有 quiz 成績
+        print(stud, "缺")
+        cp_abs.append(stud)
+# 列出缺考名單
+print("="*20)
+print("以下為 w10 缺考名單:")
+for stud in cp_abs:
+    print(stud)</pre>
+<p></p><h2>w6</h2>
+<p><a href="https://mdecp2022.github.io/site-41123152/content/Brython.html?src=https://gist.githubusercontent.com/41123152/a0e66ee9575ec44cca9130ca883c0f74/raw/690b68035a0bff6111f70aa947e6893c1d1b54de/w6_HW">hw</a></p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">from browser import document, html
+ 
+brython_div1 = document["brython_div1"]
+"""
+brython_div1 &lt;= html.BUTTON("hello")
+brython_div1 &lt;= html.BR()
+brython_div1 &lt;= html.A("google", href="https://google.com")
+"""
+ 
+url = "https://mde.tw/studlist/2022fall/1a.txt"
+data = open(url).read().split("\n")
+mdecp2022 = "https://mdecp2022.github.io/site-"
+data = data[1:-1]
+for i in data:
+    stud = i.split("\t")
+    stud_num = stud[0]
+    github_acc = stud[1]
+    #print(stud_num, github_acc)
+    if github_acc == "":
+        github_acc = stud_num
+    site = mdecp2022 + github_acc
+    link = html.A(stud_num, href=site)
+    brython_div1 &lt;= link
+    brython_div1 &lt;= html.BR()
+
+</pre>
+<p></p>
 <h2>w15</h2>
 <div style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Web', sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px;">
 <ul>
-<li>為何學習計算機程式需要建立個人倉儲?<br/>A:</li>
-<li>全球資訊網能夠提供甚麼功能或有什麼優點?<br/>A:</li>
-<li>Replit, stud.cycu.org 與 localhost 分別代表甚麼?<br/>A:</li>
-<li>https, ssh 到底提供使用者那些功能或優點?<br/>A:</li>
-<li>Brython 與 Python 有甚麼差別?<br/>A:</li>
-<li>能夠直接在瀏覽器中以 Brython 繪製中華民國國旗, 或模擬綠色方塊在方塊格點中任意移動, 代表甚麼?<br/>A:</li>
-<li>變數, 字串, 整數, 浮點數, 數列, Tuple, Dictionary, 函式, 重複迴圈, class, 物件導向, 資料庫, 這些名詞對您而言代表甚麼?<br/>A:</li>
+<li>為何學習計算機程式需要建立個人倉儲?<br/>A:用來建立個人網站</li>
+<li>全球資訊網能夠提供甚麼功能或有什麼優點?<br/>A:由眾多相連結的超文字組合而成的資訊系統</li>
+<li>Replit, stud.cycu.org 與 localhost 分別代表甚麼?<br/>A:Replit在網頁上編輯動態網站<br/>   stud.cycu.org使用時須保持網路連接<br/>   localhost在可攜環境上編輯往上，僅在push時需連接網路</li>
+<li>https, ssh 到底提供使用者那些功能或優點?<br/>A:https是網路安全傳輸協議，可在瀏覽器和網站服務器的傳輸加密<br/>   ssh是加密的網路傳輸協定，在不安全的網路提供安全的傳輸環境給網路服務</li>
+<li>Brython 與 Python 有甚麼差別?<br/>A:Brython是在瀏覽器中使用的Python</li>
+<li>能夠直接在瀏覽器中以 Brython 繪製中華民國國旗, 或模擬綠色方塊在方塊格點中任意移動, 代表甚麼?<br/>A:能在網站上繪製出平面圖形</li>
+<li>變數, 字串, 整數, 浮點數, 數列, Tuple, Dictionary, 函式, 重複迴圈, class, 物件導向, 資料庫, 這些名詞對您而言代表甚麼?<br/>A:在書寫程式時使用這些名詞，能夠讓編碼變得簡潔</li>
 </ul>
 </div><h2>w13</h2>
 <p><a href="https://mdecp2022.github.io/site-41123152/content/Brython.html?src=https://gist.githubusercontent.com/41123152/09ee545dd8027641ea542d2365d6511a/raw/445eefd60916bfff1727393991a70a7324a3bc8b/w13_hw_1.py">hwinput(), float() 與 type() 的用法</a></p>
@@ -33,7 +107,8 @@ c = float(c)
 #print(c, type(c))
 f = c*9/5 + 32
 print(c, f)</pre>
-</div><h2>w12</h2>
+</div>
+<h2>w12</h2>
 <p><a href="https://mdecp2022.github.io/site-41123152/content/Brython.html?src=https://gist.githubusercontent.com/41123152/6c6fca1024b0191b548095c46ea869ee/raw/29dca82054d59a512afe3639ced82c09fe56494d/w12_hw_1.py">hw 第一個練習</a></p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false"># Brython 的 input() 可以接受輸入提示字串, 跳出瀏覽器輸入表單後, 將輸入內容以字串取回
 user_input_temp = input("請輸入攝氏溫度值:")
@@ -52,7 +127,7 @@ Fahrenheit = (user_input_temp*9/5) + 32
 # 要將兩個浮點數與字串相加, 都必須透過 str() 轉為字串
 print("攝氏 " + str(user_input_temp) + " 度, 等於華氏 " + str(Fahrenheit) + " 度.")</pre>
 <p></p>
-<h2>w12-1</h2>
+<h2>w14</h2>
 <!-- 
 在動態網站頁面中啟用 Brython 執行環境的用法, 請注意動態網站執行所在路徑
 -->
@@ -93,7 +168,8 @@ def get_input(env):
 # 讓使用者 click 後會經由瀏覽器中的 event 通知執行 get_input 函式
 document["btn1"].bind('click', get_input)
 </script>
-</p><h1>Brython</h1>
+</p>
+<h1>Brython</h1>
 <p><a href="https://en.wikipedia.org/wiki/Python_(programming_language)">https://en.wikipedia.org/wiki/Python_(programming_language)</a></p>
 <h4>Examples:</h4>
 <p style="padding-left: 30px;"><a href="https://gist.github.com/mdecycu/d9082d678096bd58378d6afe2c7fa05d">https://gist.github.com/mdecycu/d9082d678096bd58378d6afe2c7fa05d</a></p>

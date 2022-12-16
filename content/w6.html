@@ -141,18 +141,36 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">w6 << <a href='w6.html'>Previous</a> <a href='w13.html'>Next</a> >> w13<br /><h1>w15</h1>
-<div style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Web', sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px;">
-<ul>
-<li>為何學習計算機程式需要建立個人倉儲?<br/>A:用來建立個人網站</li>
-<li>全球資訊網能夠提供甚麼功能或有什麼優點?<br/>A:由眾多相連結的超文字組合而成的資訊系統</li>
-<li>Replit, stud.cycu.org 與 localhost 分別代表甚麼?<br/>A:Replit在網頁上編輯動態網站<br/>   stud.cycu.org使用時須保持網路連接<br/>   localhost在可攜環境上編輯往上，僅在push時需連接網路</li>
-<li>https, ssh 到底提供使用者那些功能或優點?<br/>A:https是網路安全傳輸協議，可在瀏覽器和網站服務器的傳輸加密<br/>   ssh是加密的網路傳輸協定，在不安全的網路提供安全的傳輸環境給網路服務</li>
-<li>Brython 與 Python 有甚麼差別?<br/>A:Brython是在瀏覽器中使用的Python</li>
-<li>能夠直接在瀏覽器中以 Brython 繪製中華民國國旗, 或模擬綠色方塊在方塊格點中任意移動, 代表甚麼?<br/>A:能在網站上繪製出平面圖形</li>
-<li>變數, 字串, 整數, 浮點數, 數列, Tuple, Dictionary, 函式, 重複迴圈, class, 物件導向, 資料庫, 這些名詞對您而言代表甚麼?<br/>A:在書寫程式時使用這些名詞，能夠讓編碼變得簡潔</li>
-</ul>
-</div><br />w6 << <a href='w6.html'>Previous</a> <a href='w13.html'>Next</a> >> w13</div>
+    <div id="tipue_search_content">w11 << <a href='w11.html'>Previous</a> <a href='w15.html'>Next</a> >> w15<br /><h1>w6</h1>
+<p><a href="https://mdecp2022.github.io/site-41123152/content/Brython.html?src=https://gist.githubusercontent.com/41123152/a0e66ee9575ec44cca9130ca883c0f74/raw/690b68035a0bff6111f70aa947e6893c1d1b54de/w6_HW">hw</a></p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">from browser import document, html
+ 
+brython_div1 = document["brython_div1"]
+"""
+brython_div1 &lt;= html.BUTTON("hello")
+brython_div1 &lt;= html.BR()
+brython_div1 &lt;= html.A("google", href="https://google.com")
+"""
+ 
+url = "https://mde.tw/studlist/2022fall/1a.txt"
+data = open(url).read().split("\n")
+mdecp2022 = "https://mdecp2022.github.io/site-"
+data = data[1:-1]
+for i in data:
+    stud = i.split("\t")
+    stud_num = stud[0]
+    github_acc = stud[1]
+    #print(stud_num, github_acc)
+    if github_acc == "":
+        github_acc = stud_num
+    site = mdecp2022 + github_acc
+    link = html.A(stud_num, href=site)
+    brython_div1 &lt;= link
+    brython_div1 &lt;= html.BR()
+
+</pre>
+<p></p>
+<br />w11 << <a href='w11.html'>Previous</a> <a href='w15.html'>Next</a> >> w15</div>
         
     <!-- footer -->
       <div class="container">
