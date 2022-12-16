@@ -3,7 +3,70 @@
 <p><a href="https://github.com/mdecp2022/site-41123152">Github倉儲</a></p>
 <p></p>
 <h1>HW</h1>
-<h2>w11</h2>
+<h2>w14</h2>
+<p><a href="https://mdecp2022.github.io/site-41123152/content/Brython.html?src=https://gist.githubusercontent.com/41123152/b0344b8689cdbd35647dcf9e9fc4a245/raw/9558793cd80f50d052ad9c5d72e7d0753e9649ad/w14_hw">HW</a></p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false"># 導入 ast 模組是希望利用其 literal_eval() 將 dict 格式的字串轉為 dict 資料型別
+# 以利隨後的取值運算
+import ast
+from browser import document
+ 
+class quiz:
+    def __init__(self, cname, url):
+        self.cname = cname
+        self.url = url
+ 
+    # 定義一個函式, 以班級代號字串作為輸入, 可以傳回各班修課學員的學號數列
+    def get_stud(self):
+        # 將課程的班級代號字串作為 dict 的 key, 而 2022 fall 的課程代號作為對應值
+        # 使用者可以利用班級代號從 courses dict 取出課程代號
+        courses = {"1a": "0747", "1b": "0761", "2a": "0773", "2b": "0786"}
+        # 利用 c_name 從 courses 得到該學期的課程代號
+        c = courses[self.cname]
+        # 利用課程代號從學校教務主機取的該班修課人員名單
+        curl = "https://nfu.cycu.org/?semester=1111&amp;courseno=" + c + "&amp;column=True"
+        # 讀出各修課人員資料後, 以跳行符號切割, 得到的 data 為數列
+        data = open(curl).read().split("\n")
+        # 因為最後一筆資料為空字串, 因此利用數列運算將其去除
+        stud = data[:-1]
+        # get_stud() 函式最後將對應班級的修課人員學號以數列格式傳回
+        return stud
+         
+    def get_score(self):
+        # 利用 open() 與 read() 讀取考試結果 JSON 檔案
+        json_data = open(self.url).read()
+        # 利用 ast.literal_eval() 將字串 dict, 轉為程式可用的 dict 資料型別
+        big_dict = ast.literal_eval(json_data)
+        # 從 big_dict 中, 取出 body 中的 testuser 欄位資料
+        data = big_dict["body"]["testuser"]
+        # 定義一個空 dict 資料變數, 隨後利用迴圈逐一將學號作為 key, 考試成績為 valude
+        # 組成 quiz_dict 的資料內容, 以便之後可以用學號當作輸入, 取得該員考試成績
+        quiz_dict = {}
+        for i in data:
+            # data 資料中的 user_name 為考試學員的帳號, 也就是學號
+            stud_id = data[i]["user_name"]
+            # data 資料中的 total_score 欄位為考試成績
+            # 因為考試成績為字串, 先轉為浮點數後, 再轉為整數
+            stud_score = int(float(data[i]["total_score"]))
+            # 逐一以學號為 key, 考試成績為對應 value, 將資料放入 quiz_dict
+            quiz_dict[stud_id] = stud_score
+        # 取得各學員的考試成績 quiz_dict 後, 將資料傳回
+        return quiz_dict
+ 
+try:
+    url = document.query["url"]
+except:
+    url = "https://gist.githubusercontent.com/mdecycu/9df4b372ac1b7386cf259ced15f1a2b2/raw/a6825f13b1bb0b61e09e74dd117729eefe1d947f/20221110_cp1b_w10_quiz.json"
+ 
+try:
+    cname =document.query["cname"]
+except:
+    cname = "1b"
+ 
+cpb_w14 = quiz(cname, url)
+cp_stud = cpb_w14.get_stud()
+cp_score = cpb_w14.get_score()
+print(cp_stud, cp_score)</pre>
+<p></p><h2>w11</h2>
 <p><a href="https://mdecp2022.github.io/site-41123152/content/Brython.html?src=https://gist.githubusercontent.com/41123152/e7a54d130aa3940d465d28a2d3cf28ea/raw/305932aabf7b550e3a8a7dc9a7517339b46068bd/w11_hw">HW</a></p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">import ast
  
@@ -47,7 +110,8 @@ print("="*20)
 print("以下為 w10 缺考名單:")
 for stud in cp_abs:
     print(stud)</pre>
-<p></p><h2>w6</h2>
+<p></p>
+<h2>w6</h2>
 <p><a href="https://mdecp2022.github.io/site-41123152/content/Brython.html?src=https://gist.githubusercontent.com/41123152/a0e66ee9575ec44cca9130ca883c0f74/raw/690b68035a0bff6111f70aa947e6893c1d1b54de/w6_HW">hw</a></p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">from browser import document, html
  
@@ -80,14 +144,15 @@ for i in data:
 <div style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Web', sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px;">
 <ul>
 <li>為何學習計算機程式需要建立個人倉儲?<br/>A:用來建立個人網站</li>
-<li>全球資訊網能夠提供甚麼功能或有什麼優點?<br/>A:由眾多相連結的超文字組合而成的資訊系統</li>
-<li>Replit, stud.cycu.org 與 localhost 分別代表甚麼?<br/>A:Replit在網頁上編輯動態網站<br/>   stud.cycu.org使用時須保持網路連接<br/>   localhost在可攜環境上編輯往上，僅在push時需連接網路</li>
+<li>全球資訊網能夠提供甚麼功能或有什麼優點?<br/>A:由眾多相連結的超文字組合而成的資訊系統，能夠保護個人隱私</li>
+<li>Replit, stud.cycu.org 與 localhost 分別代表甚麼?<br/>A:Replit在網頁上編輯動態網站<br/>   stud.cycu.org連接至學校網站<br/>   localhost在可攜環境上編輯往上，僅在push時需連接網路</li>
 <li>https, ssh 到底提供使用者那些功能或優點?<br/>A:https是網路安全傳輸協議，可在瀏覽器和網站服務器的傳輸加密<br/>   ssh是加密的網路傳輸協定，在不安全的網路提供安全的傳輸環境給網路服務</li>
 <li>Brython 與 Python 有甚麼差別?<br/>A:Brython是在瀏覽器中使用的Python</li>
-<li>能夠直接在瀏覽器中以 Brython 繪製中華民國國旗, 或模擬綠色方塊在方塊格點中任意移動, 代表甚麼?<br/>A:能在網站上繪製出平面圖形</li>
+<li>能夠直接在瀏覽器中以 Brython 繪製中華民國國旗, 或模擬綠色方塊在方塊格點中任意移動, 代表甚麼?<br/>A:能在網站上繪製出平面圖形並運用不同顏色</li>
 <li>變數, 字串, 整數, 浮點數, 數列, Tuple, Dictionary, 函式, 重複迴圈, class, 物件導向, 資料庫, 這些名詞對您而言代表甚麼?<br/>A:在書寫程式時使用這些名詞，能夠讓編碼變得簡潔</li>
 </ul>
-</div><h2>w13</h2>
+</div>
+<h2>w13</h2>
 <p><a href="https://mdecp2022.github.io/site-41123152/content/Brython.html?src=https://gist.githubusercontent.com/41123152/09ee545dd8027641ea542d2365d6511a/raw/445eefd60916bfff1727393991a70a7324a3bc8b/w13_hw_1.py">hwinput(), float() 與 type() 的用法</a></p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">'''
 f = c*9/5 + 32
@@ -127,7 +192,7 @@ Fahrenheit = (user_input_temp*9/5) + 32
 # 要將兩個浮點數與字串相加, 都必須透過 str() 轉為字串
 print("攝氏 " + str(user_input_temp) + " 度, 等於華氏 " + str(Fahrenheit) + " 度.")</pre>
 <p></p>
-<h2>w14</h2>
+<h2>w13-1</h2>
 <!-- 
 在動態網站頁面中啟用 Brython 執行環境的用法, 請注意動態網站執行所在路徑
 -->
